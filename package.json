@@ -1,0 +1,14 @@
+{
+  "name": "interfacelistforkoa",
+  "version": "1.0.0",
+  "description": "a middleware that automatically list the interface you write in koa",
+  "main": "InterfaceList.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wuxu",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
+  }
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Interface Administrator</title>
+
+    <meta name="description" content="Interface test">
+    <meta name="author" content="wx_swjtu">
+
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+        span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>
+                    <small>Interface Administrator</small>
+                </h1>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Response
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tabbable" id="tabs-868389">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#panel-399906" data-toggle="tab">Header</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-51863" data-toggle="tab">Data</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="panel-399906">
+                                    <p id="Header">
+                                    </p>
+                                </div>
+                                <div class="tab-pane" id="panel-51863">
+                                    <p id="Data">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        URL
+                    </th>
+                    <th>
+                        Method
+                    </th>
+                    <th>
+                        Note
+                    </th>
+                    <th>
+                        Test
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="modal fade" id="modal-container-36318" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Please Config the Test Info
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <select class="form-control" id="methodGet" style="margin-bottom: 10px">
+                                <option>post</option>
+                                <option>get</option>
+                            </select>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Header
+                                    </h3>
+                                </div>
+                                <div class="panel-body" id="headerPanel">
+                                    <div>
+                                        <form class="form-inline">
+                                            <input type="checkbox" checked>
+                                            <select class="form-control headerKey" >
+                                                <option></option>
+                                                <option>Accept</option>
+                                                <option>Accept-Charset</option>
+                                                <option>Accept-Encoding</option>
+                                                <option>UserAgent</option>
+                                                <option>Orign</option>
+                                                <option>Cache-Control</option>
+                                                <option>Connection</option>
+                                                <option>Cookie</option>
+                                                <option>Authorization</option>
+                                                <option>Host</option>
+                                            </select>
+                                            <input type="text" class="form-control headerVal" >
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Data
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tabbable" id="tabs-868387">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#panel-399905" data-toggle="tab">form-data</a>
+                                            </li>
+                                            <li>
+                                                <a href="#panel-51862" data-toggle="tab">plainText</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="panel-399905">
+                                                <div>
+                                                    <form class="form-inline">
+                                                        <input type="checkbox">
+                                                        <input type="text" class="form-control inputKey fromKey">
+                                                        <input type="text" class="form-control fromVal">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="panel-51862">
+                                                <p>
+                                                    <textarea class="form-control" id="plainVal" rows="10"></textarea>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closeBtn">
+                                Close
+                            </button>
+                            <button type="button" id="changeSave" class="btn btn-primary">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script>
+    //used to add header
+    $('select')[1].onchange = function selectAppend() {
+        $('#headerPanel').append("<div>\n" +
+            "                                <form class=\"form-inline\">\n" +
+            "                                    <input type=\"checkbox\" checked>\n" +
+            "                                    <select class=\"form-control\">\n" +
+            "                                        <option></option>\n" +
+            "                                        <option>Accept</option>\n" +
+            "                                        <option>Accept-Charset</option>\n" +
+            "                                        <option>Accept-Encoding</option>\n" +
+            "                                        <option>UserAgent</option>\n" +
+            "                                        <option>Orign</option>\n" +
+            "                                        <option>Cache-Control</option>\n" +
+            "                                        <option>Connection</option>\n" +
+            "                                        <option>Cookie</option>\n" +
+            "                                        <option>Authorization</option>\n" +
+            "                                        <option>Host</option>\n" +
+            "                                    </select>\n" +
+            "                                    <input type=\"text\" class=\"form-control\">\n" +
+            "                                    <span class=\"glyphicon glyphicon-minus\"></span>\n" +
+            "                                </form>\n" +
+            "                            </div>");
+        var selectComp = $('select');
+        selectComp[selectComp.length - 2].onchange = function () {};
+        selectComp[selectComp.length - 1].onchange = selectAppend;
+    };
+</script>
+<script>
+    //used to add form data;
+    $('.inputKey')[0].onchange = function keyAppend() {
+        $('#panel-399905').append("<div>\n" +
+            "                                            <form class=\"form-inline\">\n" +
+            "                                                <input type=\"checkbox\">\n" +
+            "                                                <input type=\"text\" class=\"form-control inputKey\">\n" +
+            "                                                <input type=\"text\" class=\"form-control\">\n" +
+            "                                                <span class=\"glyphicon glyphicon-minus\"></span>\n" +
+            "                                            </form>\n" +
+            "                                        </div>");
+        var inputKey = $('.inputKey');
+        var len = inputKey.length;
+        inputKey[len - 2].onchange = function () {
+        };
+        inputKey[len - 1].onchange = keyAppend;
+    }
+</script>
+<script>
+    //used to handle the modify action
+    var trList = $('tbody tr');
+    $('.btnModify').each(function (index) {
+        $(this).click(function () {
+            var tdList = trList[index].children;
+            if ($(this).text() === "Modify") {
+                tdList[0].setAttribute("contenteditable", "true");
+                tdList[3].setAttribute("contenteditable", "true");
+                $(this).text("OK");
+            }
+            else {
+                var url = window.location.pathname;
+                $.post(url, {
+                    id: index,
+                    name: tdList[0].innerHTML.trim(),
+                    note: tdList[3].innerHTML.trim(),
+                }, function (data) {
+                    console.log(data);
+                });
+                tdList[0].setAttribute("contenteditable", "false");
+                tdList[3].setAttribute("contenteditable", "false");
+                $(this).text("Modify");
+            }
+        });
+    })
+</script>
+<script>
+    //handle the config action
+    var hashStr="";
+    document.querySelector("table").addEventListener("click",function (event) {
+        if(event.target.getAttribute("href")==="#modal-container-36318")
+        {
+            var targetTd=event.target.parentElement;
+            var children=targetTd.parentElement.children;
+            var methods=children[2].innerHTML.trim().split(",");
+            for(var i=0;i<methods.length;i++)
+            {
+                var option=document.createElement("option");
+                option.appendChild(document.createTextNode(methods[i]));
+                document.getElementById("methodGet").appendChild(option);
+            }
+            hashStr=children[1].innerHTML.trim()+"|"+children[2].innerHTML.trim();
+        }
+    });
+    document.querySelector("#changeSave").addEventListener("click",function (event) {
+        var forms=document.forms;
+        var headers={};
+        var formData={};
+        var method=document.getElementById("methodGet").options[document.getElementById("methodGet").selectedIndex].value;
+        for(let i=0;i<forms.length;i++)
+        {
+            if(forms[i].children[0].checked==false)
+            {
+                continue;
+            }
+            if(forms[i].children[1].tagName.toLowerCase()==="select")
+            {
+                let child=forms[i].children[1];
+                headers[child.options[child.selectedIndex].value]=forms[i].children[2].value;
+            }
+            else
+            {
+                formData[forms[i].children[1].value]=forms[i].children[2].value;
+            }
+        }
+        window.localStorage.setItem(hashStr,JSON.stringify({method:method,headers:headers,formData:formData,plaintext:document.getElementById("plainVal")}));
+        document.getElementById("closeBtn").click();
+    });
+</script>
+
+<script>
+//handle the test button
+$(".btnTest").each(function () {
+    $(this).click(function () {
+     //   console.log($(this).parent().parent().children());
+        var url=$(this).parent().parent().children()[1].innerHTML.trim();
+        var method=$(this).parent().parent().children()[2].innerHTML.trim();
+        var hash=url+"|"+method;
+        var data=window.localStorage.getItem(hash);
+        if(data==null){
+            alert("you need to config you information");
+        }
+        else
+        {
+            var jsonData=JSON.parse(data);
+            var postData="";
+            if(jsonData.formData!="")
+            {
+                postData=jsonData.formData;
+            }
+            else{
+                postData=jsonData.plaintext;
+            }
+            $.ajax({type:jsonData.method,url:url,headers:jsonData.headers,data:postData,success:function (data,textStatus, request) {
+                    document.getElementById("Data").innerHTML=data;
+                    console.log(typeof request.getAllResponseHeaders());
+                    var headers=request.getAllResponseHeaders().split("\n");
+                    //console.log(headers);
+                    for(var i=0;i<headers.length;i++)
+                    {
+                        document.getElementById("Header").innerHTML+=headers[i]+"<br>";
+                    }
+                  //  console.log(headers.substring(headers.indexOf(":"),headers.lastIndexOf(" ")));
+                   // document.getElementById("Header").innerHTML=headers;
+            }});
+        }
+    })
+})
+</script>
+</body>
+</html>
