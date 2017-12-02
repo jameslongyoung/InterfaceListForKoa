@@ -1,7 +1,7 @@
 # InterfaceListForKoa
 a middleware that automatically list and admin the interfaces you write<br>
-how to use?
-
+how to use?<br>
+npm i interfacelistforkoa<br>
 const interfaceList=require("InterfaceListForKoa");<br>
 app.use(interfaceList.createWeb(app,"/"));<br>
 interfaceList.createWeb(app,[url]),url is the route that used to display the website<br>
