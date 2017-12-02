@@ -121,7 +121,7 @@
                                                 <option>Host</option>
                                             </select>
                                             <input type="text" class="form-control headerVal" >
-                                            <span class="glyphicon glyphicon-minus"></span>
+                                            <span class="glyphicon glyphicon-minus headerSpan"></span>
                                         </form>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                                         <input type="checkbox">
                                                         <input type="text" class="form-control inputKey fromKey">
                                                         <input type="text" class="form-control fromVal">
-                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                        <span class="glyphicon glyphicon-minus formSpan"></span>
                                                     </form>
                                                 </div>
                                             </div>
@@ -202,9 +202,25 @@
             "                                        <option>Host</option>\n" +
             "                                    </select>\n" +
             "                                    <input type=\"text\" class=\"form-control\">\n" +
-            "                                    <span class=\"glyphicon glyphicon-minus\"></span>\n" +
+            "                                    <span class=\"glyphicon glyphicon-minus headerSpan\"></span>\n" +
             "                                </form>\n" +
             "                            </div>");
+        var spanList=document.getElementsByClassName("headerSpan");
+        spanList[spanList.length-1].addEventListener("click",function () {
+            var spanList=document.getElementsByClassName("headerSpan");
+            if(spanList.length===1)
+            {
+                return;
+            }
+            else
+            {
+                var spanPar=spanList[spanList.length-1].parentElement.parentElement;
+                spanPar.parentElement.removeChild(spanPar);
+            }
+            var selectComp=$('select');
+            selectComp[selectComp.length - 1].onchange = selectAppend;
+            //  spanList[spanList.length-1].onchange=selectAppend;
+        });
         var selectComp = $('select');
         selectComp[selectComp.length - 2].onchange = function () {};
         selectComp[selectComp.length - 1].onchange = selectAppend;
@@ -218,9 +234,25 @@
             "                                                <input type=\"checkbox\">\n" +
             "                                                <input type=\"text\" class=\"form-control inputKey\">\n" +
             "                                                <input type=\"text\" class=\"form-control\">\n" +
-            "                                                <span class=\"glyphicon glyphicon-minus\"></span>\n" +
+            "                                                <span class=\"glyphicon glyphicon-minus formSpan\"></span>\n" +
             "                                            </form>\n" +
             "                                        </div>");
+        var spanList=document.getElementsByClassName("formSpan");
+        spanList[spanList.length-1].addEventListener("click",function () {
+            var spanList=document.getElementsByClassName("formSpan");
+            if(spanList.length===1)
+            {
+                return;
+            }
+            else
+            {
+                var spanPar=spanList[spanList.length-1].parentElement.parentElement;
+                spanPar.parentElement.removeChild(spanPar);
+            }
+            var selectComp=$('.inputKey');
+            selectComp[selectComp.length - 1].onchange = keyAppend;
+            //  spanList[spanList.length-1].onchange=selectAppend;
+        });
         var inputKey = $('.inputKey');
         var len = inputKey.length;
         inputKey[len - 2].onchange = function () {
@@ -300,43 +332,83 @@
 </script>
 
 <script>
-//handle the test button
-$(".btnTest").each(function () {
-    $(this).click(function () {
-     //   console.log($(this).parent().parent().children());
-        var url=$(this).parent().parent().children()[1].innerHTML.trim();
-        var method=$(this).parent().parent().children()[2].innerHTML.trim();
-        var hash=url+"|"+method;
-        var data=window.localStorage.getItem(hash);
-        if(data==null){
-            alert("you need to config you information");
-        }
-        else
-        {
-            var jsonData=JSON.parse(data);
-            var postData="";
-            if(jsonData.formData!="")
+    //handle the test button
+    $(".btnTest").each(function () {
+        $(this).click(function () {
+            //   console.log($(this).parent().parent().children());
+            var url=$(this).parent().parent().children()[1].innerHTML.trim();
+            var method=$(this).parent().parent().children()[2].innerHTML.trim();
+            var hash=url+"|"+method;
+            var data=window.localStorage.getItem(hash);
+            if(data==null){
+                alert("you need to config you information");
+            }
+            else
             {
-                postData=jsonData.formData;
+                var jsonData=JSON.parse(data);
+                var postData="";
+                if(jsonData.formData!="")
+                {
+                    postData=jsonData.formData;
+                }
+                else{
+                    postData=jsonData.plaintext;
+                }
+                $.ajax({type:jsonData.method,url:url,headers:jsonData.headers,data:postData,success:function (data,textStatus, request) {
+                        document.getElementById("Data").innerHTML=data;
+                        console.log(typeof request.getAllResponseHeaders());
+                        var headers=request.getAllResponseHeaders().split("\n");
+                        //console.log(headers);
+                        for(var i=0;i<headers.length;i++)
+                        {
+                            document.getElementById("Header").innerHTML+=headers[i]+"<br>";
+                        }
+                        //  console.log(headers.substring(headers.indexOf(":"),headers.lastIndexOf(" ")));
+                        // document.getElementById("Header").innerHTML=headers;
+                    }});
             }
-            else{
-                postData=jsonData.plaintext;
-            }
-            $.ajax({type:jsonData.method,url:url,headers:jsonData.headers,data:postData,success:function (data,textStatus, request) {
-                    document.getElementById("Data").innerHTML=data;
-                    console.log(typeof request.getAllResponseHeaders());
-                    var headers=request.getAllResponseHeaders().split("\n");
-                    //console.log(headers);
-                    for(var i=0;i<headers.length;i++)
-                    {
-                        document.getElementById("Header").innerHTML+=headers[i]+"<br>";
-                    }
-                  //  console.log(headers.substring(headers.indexOf(":"),headers.lastIndexOf(" ")));
-                   // document.getElementById("Header").innerHTML=headers;
-            }});
-        }
+        })
     })
-})
+</script>
+<script>
+    var spanList=document.getElementsByClassName("headerSpan");
+    for(var i=0;i<spanList.length;i++)
+    {
+        spanList[i].addEventListener("click",(function (i) {
+            return function () {
+                var spanList=document.getElementsByClassName("headerSpan");
+                if(spanList.length===1)
+                {
+                    return;
+                }
+                else
+                {
+                    var spanPar=spanList[i].parentElement.parentElement;
+                    spanPar.parentElement.removeChild(spanPar);
+                }
+            }
+        })(i))
+    }
+</script>
+<script>
+    var spanList=document.getElementsByClassName("formSpan");
+    for(var i=0;i<spanList.length;i++)
+    {
+        spanList[i].addEventListener("click",(function (i) {
+            return function () {
+                var spanList=document.getElementsByClassName("formSpan");
+                if(spanList.length===1)
+                {
+                    return;
+                }
+                else
+                {
+                    var spanPar=spanList[i].parentElement.parentElement;
+                    spanPar.parentElement.removeChild(spanPar);
+                }
+            }
+        })(i))
+    }
 </script>
 </body>
 </html>
